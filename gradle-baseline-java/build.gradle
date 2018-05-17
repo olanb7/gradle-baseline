@@ -28,43 +28,43 @@ compileGroovy.dependsOn createVersionFile
 
 apply plugin: "com.gradle.plugin-publish"
 pluginBundle {
-    website = 'https://github.com/palantir/gradle-baseline'
-    vcsUrl = 'https://github.com/palantir/gradle-baseline'
+    website = 'https://ghe.iparadigms.com/NCL-Hack-2018/gradle-baseline'
+    vcsUrl = 'https://ghe.iparadigms.com/NCL-Hack-2018/gradle-baseline'
     description = 'Baseline Java is a collection of Gradle plugins for configuring code quality tools in builds and generated Eclipse/IntelliJ projects.'
     tags = ['java', 'checkstyle', 'code quality', 'eclipse', 'idea']
 
     plugins {
         baselinePlugins {
-            id = 'com.palantir.baseline'
-            displayName = 'Palantir Baseline Plugins'
+            id = 'com.turnitin.baseline'
+            displayName = 'Turnitin Baseline Plugins'
         }
         baselineCheckstylePlugin {
-            id = 'com.palantir.baseline-checkstyle'
-            displayName = 'Palantir Baseline Checkstyle Plugin'
+            id = 'com.turnitin.baseline-checkstyle'
+            displayName = 'Turnitin Baseline Checkstyle Plugin'
         }
         baselineConfigPlugin {
-            id = 'com.palantir.baseline-config'
-            displayName = 'Palantir Baseline Configuration Plugin'
+            id = 'com.turnitin.baseline-config'
+            displayName = 'Turnitin Baseline Configuration Plugin'
         }
         baselineEclipsePlugin {
-            id = 'com.palantir.baseline-eclipse'
-            displayName = 'Palantir Baseline Eclipse Plugin'
+            id = 'com.turnitin.baseline-eclipse'
+            displayName = 'Turnitin Baseline Eclipse Plugin'
         }
         baselineFindBugsPlugin {
-            id = 'com.palantir.baseline-findbugs'
-            displayName = 'Palantir Baseline Findbugs Plugin'
+            id = 'com.turnitin.baseline-findbugs'
+            displayName = 'Turnitin Baseline Findbugs Plugin'
         }
         baselineIdeaPlugin {
-            id = 'com.palantir.baseline-idea'
-            displayName = 'Palantir Baseline IntelliJ Plugin'
+            id = 'com.turnitin.baseline-idea'
+            displayName = 'Turnitin Baseline IntelliJ Plugin'
         }
         baselinePmdPlugin {
-            id = 'com.palantir.baseline-pmd'
-            displayName = 'Palantir Baseline Pmd Plugin'
+            id = 'com.turnitin.baseline-pmd'
+            displayName = 'Turnitin Baseline Pmd Plugin'
         }
         baselineClassUniquenessPlugin {
-            id = 'com.palantir.baseline-class-uniqueness'
-            displayName = 'Palantir Baseline Class Uniqueness Plugin'
+            id = 'com.turnitin.baseline-class-uniqueness'
+            displayName = 'Turnitin Baseline Class Uniqueness Plugin'
         }
     }
 }

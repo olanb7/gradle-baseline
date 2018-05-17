@@ -1,0 +1,1 @@
+(c) Copyright ${today.year} Turnitin, LLC. All rights reserved.
