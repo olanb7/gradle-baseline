@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset name="SRAI ruleset" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>Turnitin PMD ruleset</description>
+
+    <exclude-pattern>.*Application.java</exclude-pattern>
+    <exclude-pattern>.*/test/.*</exclude-pattern>
+
+    <!-- categories -->
+
+    <rule ref="category/java/bestpractices.xml" />
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor" />
+        <exclude name="OnlyOneReturn" />
+    </rule>
+    <rule ref="category/java/design.xml" />
+    <rule ref="category/java/errorprone.xml" />
+    <rule ref="category/java/multithreading.xml" />
+    <rule ref="category/java/performance.xml" />
+    <rule ref="category/java/security.xml" />
+
+    <!-- rule overrides: add rationale for any overrides! -->
+
+    <rule ref="category/java/design.xml/ExcessiveImports" >
+        <properties>
+            <!-- increasing the max imports to 40, as we discourage wildcard static imports -->
+            <property name="minimum" value="40" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/TooManyStaticImports">
+        <properties>
+            <!-- increasing the max static imports to 20, as we discourage wildcard static imports -->
+            <property name="minimum" value="20" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <!-- increasing the max chars for a variable to 40 as we like descriptive names -->
+            <property name="minimum" value="40" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <properties>
+            <!-- reducing to 2 characters to enable common shorthand, i.e. Exception ex -->
+            <property name="minimum" value="2"/>
+        </properties>
+    </rule>
+
+</ruleset>
+

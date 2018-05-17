@@ -4,7 +4,9 @@
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <!--
-    Palantir Baseline Checkstyle configuration.
+    Turnitin Baseline Checkstyle configuration.
+
+    This is adapted from the Palantir guidelines, which in turn are heavily influenced by Google.
     Authors: Robert Fink, Brian Worth, Merrick Zoubeiri, and many other contributors. Based in part on http://checkstyle.sourceforge.net/google_style.html
     Please keep checks alphabetized with one exception: "relaxed" checks are grouped together at the bottom for easier disabling.
     Check-specific comments reference documents internal to Palantir and can be safely ignored or removed.
@@ -14,13 +16,8 @@
     <property name="charset" value="UTF-8"/>
     <property name="severity" value="error"/>
 
-    <module name="FileTabCharacter"/> <!-- Java Style Guide: Whitespace characters -->
     <module name="NewlineAtEndOfFile"> <!-- Java Style Guide: Line ending: LF -->
         <property name="lineSeparator" value="lf"/>
-    </module>
-    <module name="RegexpHeader">
-        <property name="header" value="^/\*$\n^ \* \(c\) Copyright \d{4} Palantir Technologies Inc\. All rights reserved\.$"/>
-        <property name="fileExtensions" value=".java,.ts"/>
     </module>
     <module name="RegexpMultiline"> <!-- Development Practices: Writing good unit tests -->
         <property name="fileExtensions" value="java"/>
@@ -35,12 +32,8 @@
         <property name="format" value="&gt;&gt;&gt;&gt;&gt;&gt;&gt;"/>
         <property name="message" value="Found (&gt;&gt;&gt;&gt;&gt;&gt;&gt;), so it looks like you had a merge conflict that compiles. Please fix it."/>
     </module>
-    <module name="RegexpSingleline">
-        <property name="format" value="\s+$"/>
-        <property name="message" value="Whitespace at end-of-line"/>
-    </module>
     <module name="RegexpMultiline"> <!-- Java Style Guide: Vertical Whitespace -->
-	<property name="fileExtensions" value="java"/>
+        <property name="fileExtensions" value="java"/>
         <property name="format" value="^\n\n$"/>
         <property name="message" value="Two consecutive blank lines are not permitted."/>
     </module>
@@ -57,7 +50,7 @@
     <module name="TreeWalker">
         <module name="AbbreviationAsWordInName"> <!-- Java Style Guide: Camel case : defined -->
             <property name="ignoreFinal" value="false"/>
-            <property name="allowedAbbreviationLength" value="1"/>
+            <property name="allowedAbbreviationLength" value="3"/>
         </module>
         <module name="AnnotationLocation"> <!-- Java Style Guide: Annotations -->
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
@@ -158,21 +151,20 @@
             <property name="illegalClassNames" value="java.util.HashSet, java.util.HashMap, java.util.LinkedHashMap, java.util.LinkedHashSet, java.util.TreeSet, java.util.TreeMap, com.google.common.collect.ArrayListMultimap, com.google.common.collect.ForwardingListMultimap, com.google.common.collect.ForwardingMultimap, com.google.common.collect.ForwardingSetMultimap, com.google.common.collect.ForwardingSortedSetMultimap, com.google.common.collect.HashMultimap, com.google.common.collect.LinkedHashMultimap, com.google.common.collect.LinkedListMultimap, com.google.common.collect.TreeMultimap"/>
         </module>
         <module name="ImportOrder"> <!-- Java Style Guide: Ordering and spacing -->
-            <property name="groups" value="/.*/"/>
-            <property name="option" value="top"/>
+            <property name="groups" value="java,/^javax?\./,*,org.springframework" />
+            <property name="ordered" value="true" />
+            <property name="separated" value="true" />
+            <property name="option" value="bottom" />
             <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
+        <property name="tabWidth" value="4"/>
         <module name="Indentation"> <!-- Java Style Guide: Block indentation: +4 spaces -->
-            <property name="arrayInitIndent" value="8"/>
-            <property name="lineWrappingIndentation" value="8"/>
+            <property name="arrayInitIndent" value="4"/>
+            <property name="lineWrappingIndentation" value="4"/>
         </module>
         <module name="InnerAssignment"/> <!-- Java Coding Guidelines: Inner assignments: Not used -->
         <module name="LeftCurly"> <!-- Java Style Guide: Nonempty blocks: K & R style -->
             <property name="maxLineLength" value="120"/>
-        </module>
-        <module name="LineLength"> <!-- Java Style Guide: No line-wrapping -->
-            <property name="max" value="120"/>
-            <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
         </module>
         <module name="MemberName"> <!-- Java Style Guide: Non-constant field names -->
             <property name="format" value="^[a-z][a-zA-Z0-9]+$"/>
@@ -286,14 +278,6 @@
             <property name="message" value="This is unnecessary; please delete."/>
         </module>
         <module name="RegexpSinglelineJava">
-            <property name="format" value="@return.*\.$"/>
-            <property name="message" value="Please delete the period."/>
-        </module>
-        <module name="RegexpSinglelineJava"> <!-- Java Style Guide: Horizontal whitespace -->
-            <property name="format" value="\s+$"/>
-            <property name="message" value="Trailing whitespace is not allowed."/>
-        </module>
-        <module name="RegexpSinglelineJava">
             <property name="format" value="\? extends Object\W"/>
             <property name="message" value="Use ? rather than ? extends Object."/>
         </module>
@@ -323,9 +307,10 @@
             <property name="format" value="static enum"/>
             <property name="message" value="Redundant ''static'' modifier."/>
         </module>
-        <module name="RegexpSinglelineJava">
-            <property name="format" value="\/\/TODO|\/\/ TODO(?!\([^()\s]+\): )"/>
-            <property name="message" value="TODO format: // TODO(flastname): explanation"/>
+        <module name="RegexpSinglelineJavaCheck">
+            <property name="format" value="^\t* +\t*\S" />
+            <property name="ignoreComments" value="true" />
+            <property name="message" value="Avoid mixing tabs and spaces"/>
         </module>
         <module name="RegexpSinglelineJava">
             <property name="format" value="(void setUp\(\))|(void setup\(\))|(void setupStatic\(\))|(void setUpStatic\(\))|(void beforeTest\(\))|(void teardown\(\))|(void tearDown\(\))|(void beforeStatic\(\))|(void afterStatic\(\))"/>
@@ -366,7 +351,7 @@
         </module>
         <module name="UpperEll"/> <!-- Java Style Guide: Numeric Literals -->
         <module name="VisibilityModifier"/> <!-- Java Coding Guidelines: Minimize mutability -->
-        <module name="WhitespaceAfter"/> <!-- Java Style Guide: Horizontal whitespace -->
+
         <module name="WhitespaceAround"> <!-- Java Style Guide: Horizontal whitespace -->
             <property name="allowEmptyConstructors" value="true"/>
             <property name="allowEmptyMethods" value="true"/>
@@ -377,6 +362,29 @@
             <message key="ws.notPreceded" value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
         </module>
 
+        <!-- Controvertial checks begin: these are some of the checks that some consider best practises. Mostly here for reference -->
+
+        <!--<module name="FileTabCharacter"/> &lt;!&ndash; Java Style Guide: Whitespace characters &ndash;&gt;-->
+        <!--<module name="RegexpHeader">-->
+        <!--<property name="header" value="^/\*$\n^ \* \(c\) Copyright \d{4} Palantir Technologies Inc\. All rights reserved\.$"/>-->
+        <!--<property name="fileExtensions" value=".java,.ts"/>-->
+        <!--</module>-->
+        <!--<module name="RegexpSingleline">-->
+        <!--<property name="format" value="\s+$"/>-->
+        <!--<property name="message" value="Whitespace at end-of-line"/>-->
+        <!--</module>-->
+        <!--<module name="RegexpSinglelineJava">-->
+        <!--<property name="format" value="\/\/TODO|\/\/ TODO(?!\([^()\s]+\): )"/>-->
+        <!--<property name="message" value="TODO format: // TODO(flastname): explanation"/>-->
+        <!--</module>-->
+        <!--<module name="WhitespaceAfter"/> &lt;!&ndash; Java Style Guide: Horizontal whitespace &ndash;&gt;-->
+        <!--<module name="LineLength"> &lt;!&ndash; Java Style Guide: No line-wrapping &ndash;&gt;-->
+        <!--<property name="max" value="120"/>-->
+        <!--<property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>-->
+        <!--</module>-->
+
+        <!-- Controvertial checks end -->
+
         <!-- Stricter checks begin: delete some or all of the following for faster prototyping, but please restore before pushing to production. -->
 
         <module name="AtclauseOrder"> <!-- Java Style Guide: At-clauses -->
@@ -384,7 +392,7 @@
             <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
         </module>
         <module name="CyclomaticComplexity"/> <!-- Java Coding Guidelines: Reduce Cyclomatic Complexity -->
-        <module name="DesignForExtension"/> <!-- Java Coding Guidelines: Design for extension -->
+        <!--<module name="DesignForExtension"/> &lt;!&ndash; Java Coding Guidelines: Design for extension &ndash;&gt;-->
         <module name="JavadocMethod"> <!-- Java Style Guide: Where Javadoc is used -->
             <property name="scope" value="public"/>
             <property name="allowMissingParamTags" value="true"/>

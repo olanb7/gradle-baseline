@@ -11,7 +11,7 @@ dependencies {
     compile gradleApi()
     compile 'net.ltgt.gradle:gradle-errorprone-plugin'
     compile 'com.google.guava:guava'
-
+    compile 'gradle.plugin.com.github.spotbugs:gradlePlugin:1.6.0'
     testCompile gradleTestKit()
     testCompile 'com.netflix.nebula:nebula-test' // for better temp directory junit rule only
     testCompile 'net.lingala.zip4j:zip4j'
@@ -50,9 +50,17 @@ pluginBundle {
             id = 'com.palantir.baseline-eclipse'
             displayName = 'Palantir Baseline Eclipse Plugin'
         }
+        baselineFindBugsPlugin {
+            id = 'com.palantir.baseline-findbugs'
+            displayName = 'Palantir Baseline Findbugs Plugin'
+        }
         baselineIdeaPlugin {
             id = 'com.palantir.baseline-idea'
             displayName = 'Palantir Baseline IntelliJ Plugin'
+        }
+        baselinePmdPlugin {
+            id = 'com.palantir.baseline-pmd'
+            displayName = 'Palantir Baseline Pmd Plugin'
         }
         baselineClassUniquenessPlugin {
             id = 'com.palantir.baseline-class-uniqueness'
