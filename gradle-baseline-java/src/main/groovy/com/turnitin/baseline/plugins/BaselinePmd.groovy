@@ -39,6 +39,8 @@ class BaselinePmd extends AbstractBaselinePlugin {
 
         // Configure PMD
         project.pmd {
+            // empty ruleSets to work around bug: https://github.com/pmd/pmd/issues/876
+            ruleSets = []
             ruleSetFiles = getRuleSetFiles()
             consoleOutput = DEFAULT_CONSOLE_OUTPUT
             toolVersion = DEFAULT_PMD_VERSION

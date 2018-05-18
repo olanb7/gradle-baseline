@@ -27,7 +27,7 @@ class BaselineErrorProne extends AbstractBaselinePlugin {
         project.plugins.apply(ErrorPronePlugin)
         project.dependencies {
             // TODO(rfink): This is somewhat ugly. Is there a better to add the processor dependency on the library?
-            errorprone "com.palantir.baseline:baseline-error-prone:${extractVersionString()}"
+            errorprone "com.turnitin.baseline:baseline-error-prone:${extractVersionString()}"
         }
     }
 

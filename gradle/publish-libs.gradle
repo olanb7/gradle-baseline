@@ -2,24 +2,30 @@ apply plugin: 'maven'
 apply plugin: 'nebula.maven-base-publish'
 apply plugin: 'nebula.maven-resolved-dependencies'
 apply plugin: 'nebula.source-jar'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.jfrog.artifactory'
 
-bintrayUpload.dependsOn { build }
-bintrayUpload.dependsOn { generatePomFileForNebulaPublication }
 
-bintray {
-    user = System.getenv('BINTRAY_USERNAME')
-    key = System.getenv('BINTRAY_PASSWORD')
-    publish = true
-    pkg {
-        repo = 'releases'
-        name = 'gradle-baseline'
-        userOrg = 'palantir'
-        licenses = ['Apache-2.0']
-        publications = ['nebula']
+def artifactory_user = ("$System.env.artifactory_user" != "null") ? "$System.env.artifactory_user" : "${artifactory_user}"
+def artifactory_password = ("$System.env.artifactory_password" != "null") ? "$System.env.artifactory_password" : "${artifactory_password}"
+def artifactory_contextUrl = ("$System.env.artifactory_contextUrl" != "null") ? "$System.env.artifactory_contextUrl" : "${artifactory_contextUrl}"
+
+artifactoryPublish.dependsOn { build }
+artifactoryPublish.dependsOn { generatePomFileForNebulaPublication }
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    publish {
+        repository {
+            repoKey = 'plugins-snapshot-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+        defaults {
+            publications ('nebula')
+        }
     }
 }
-
 publishing {
     publications {
         nebula(MavenPublication) {
